@@ -59,21 +59,37 @@ namespace businesslogic.Managers
                 CI = patient.CI,
                 BloodGroup = patient.BloodGroup
             };
+            _patients.Add(patient2);
+
             return patient2;
         }
 
-        public Patient UpdatePatient(Patient patientToUpdate)
-        { 
-            throw new NotImplementedException();
+        public Patient UpdatePatient(int ci, Patient patientToUpdate)
+        {
+            Patient existingPatient = GetPatientByCI(ci);
+
+            if (!string.IsNullOrWhiteSpace(patientToUpdate.Name))
+            {
+                existingPatient.Name = patientToUpdate.Name;
+            }
+            if (!string.IsNullOrWhiteSpace(patientToUpdate.LastName))
+            {
+                existingPatient.LastName = patientToUpdate.LastName;
+            }
+            return existingPatient;
         }
 
         public Patient GetPatientByCI(int ci) 
         {
-            throw new NotImplementedException();
+            Patient foundPatient = _patients.Find(x => x.CI == ci);
+            return foundPatient;
         }
-        public Patient DeletePatientByID(int id) 
+        public Patient DeletePatientByID(int ci) 
         {
-            throw new NotImplementedException();
+            Patient patientToDel = GetPatientByCI(ci);
+            _patients.Remove(patientToDel);
+            return patientToDel;
+
         }
 
     }
