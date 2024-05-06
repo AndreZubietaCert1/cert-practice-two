@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,11 @@ namespace businesslogic.Managers
 {
     public class PatientManager
     {
+        public class PatientNotFoundException : Exception
+        {
+            public PatientNotFoundException(string message) : base(message) { }
+        }
+
 
         private List<Patient> _patients;
         public PatientManager()
@@ -68,6 +74,12 @@ namespace businesslogic.Managers
         {
             Patient existingPatient = GetPatientByCI(ci);
 
+            if (existingPatient == null)
+            {
+                
+                throw new PatientNotFoundException("Patient not found");
+            }
+
             if (!string.IsNullOrWhiteSpace(patientToUpdate.Name))
             {
                 existingPatient.Name = patientToUpdate.Name;
@@ -82,11 +94,22 @@ namespace businesslogic.Managers
         public Patient GetPatientByCI(int ci) 
         {
             Patient foundPatient = _patients.Find(x => x.CI == ci);
+
+            if (foundPatient == null)
+            {
+                throw new PatientNotFoundException("Patient not found");
+            }
+
             return foundPatient;
         }
         public Patient DeletePatientByID(int ci) 
         {
             Patient patientToDel = GetPatientByCI(ci);
+            if (patientToDel == null)
+            {
+                throw new PatientNotFoundException("Patient not found");
+            }
+
             _patients.Remove(patientToDel);
             return patientToDel;
 

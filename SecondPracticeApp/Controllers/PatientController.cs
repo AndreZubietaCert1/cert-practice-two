@@ -30,7 +30,13 @@ namespace SecondPracticeApp.Controllers
         [HttpGet("{ci}")]
         public Patient Get(int ci)
         {
+            if (_patientManager.GetPatientByCI(ci) == null)
+            {
+                // Log.Error("Error 404: Patient not found");
+            }
             return _patientManager.GetPatientByCI(ci);
+
+            
         }
 
         // POST api/<PatientController>
@@ -44,7 +50,9 @@ namespace SecondPracticeApp.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Patient value)
         {
+
             _patientManager.UpdatePatient(id, value);
+
         }
 
         // DELETE api/<PatientsController>/5
