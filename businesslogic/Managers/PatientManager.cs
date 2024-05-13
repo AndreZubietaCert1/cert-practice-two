@@ -16,6 +16,7 @@ namespace businesslogic.Managers
             public PatientNotFoundException(string message) : base(message) { }
         }
 
+        
 
         private List<Patient> _patients;
         public PatientManager()
@@ -58,12 +59,17 @@ namespace businesslogic.Managers
 
         public Patient CreatePatient(Patient patient) 
         {
+
+            string[] bloodGroups = { "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" };
+            Random random = new Random();
+            int randBloodGroup = random.Next(bloodGroups.Length);
+
             Patient patient2 = new Patient()
             {
                 Name = patient.Name,
                 LastName = patient.LastName,
                 CI = patient.CI,
-                BloodGroup = patient.BloodGroup
+                BloodGroup = bloodGroups[randBloodGroup]
             };
             _patients.Add(patient2);
 
