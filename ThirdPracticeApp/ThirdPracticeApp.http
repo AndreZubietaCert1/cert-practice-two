@@ -1,0 +1,6 @@
+@ThirdPracticeApp_HostAddress = http://localhost:5229
+
+GET {{ThirdPracticeApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
