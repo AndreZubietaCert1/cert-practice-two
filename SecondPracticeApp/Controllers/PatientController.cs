@@ -14,9 +14,9 @@ namespace SecondPracticeApp.Controllers
 
         private PatientManager _patientManager;
 
-        public PatientController(PatientManager patientManager) 
+        public PatientController(PatientManager patientManager)
         {
-            _patientManager = patientManager; 
+            _patientManager = patientManager;
         }
 
 
@@ -36,7 +36,7 @@ namespace SecondPracticeApp.Controllers
             }
             return _patientManager.GetPatientByCI(ci);
 
-            
+
         }
 
         // POST api/<PatientController>
