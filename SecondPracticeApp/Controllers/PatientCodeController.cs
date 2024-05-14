@@ -1,14 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using businesslogic.Managers;
-using businesslogic.Models;
-using ThirdPracticeApp.Models;
-
-namespace ThirdPracticeApp.Controllers
+﻿namespace SecondPracticeApp.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class PatientCodeController : ControllerBase
+    public class PatientCodeController
     {
+
         private readonly PatientCodeCreation _patientCodeCreation;
 
         public PatientCodeController(PatientCodeCreation patientCodeCreation)
@@ -29,5 +23,6 @@ namespace ThirdPracticeApp.Controllers
 
             return Ok(patientCode);
         }
+
     }
 }

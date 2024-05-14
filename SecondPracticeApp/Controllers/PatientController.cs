@@ -12,7 +12,37 @@ namespace SecondPracticeApp.Controllers
     {
         // GET: api/<PatientController>
 
+
+
+
         private PatientManager _patientManager;
+        private readonly HttpClient _httpClient;
+
+        public PatientController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClient = httpClientFactory.CreateClient();
+        }
+
+        [HttpPost("generate-patient-code")]
+        public async Task<string> GeneratePatientCode([FromBody] Patient patient)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://practice3-api-url/api/PatientCode");
+
+            request.Content = new StringContent(System.Text.Json.JsonSerializer.Serialize(patient), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string patientCode = await response.Content.ReadAsStringAsync();
+                return patientCode;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
 
         public PatientController(PatientManager patientManager)
         {
